@@ -1,0 +1,5 @@
+com\ifcoder\lfa_automatos\modelo\TransicaoPilhaUnit.class
+com\ifcoder\lfa_automatos\LFA_Automatos.class
+com\ifcoder\lfa_automatos\modelo\ChaveTransicao.class
+com\ifcoder\lfa_automatos\modelo\TransicaoPilha.class
+com\ifcoder\lfa_automatos\modelo\Automato.class
