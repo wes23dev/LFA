@@ -1,7 +1,5 @@
 package com.ifcoder.lfa_automatos.modelo;
 
-
-import com.ifcoder.lfa_automatos.modelo.TransicaoPilha;
 import com.ifcoder.lfa_automatos.modelo.TransicaoPilhaUnit;
 import java.util.*;
 
@@ -28,19 +26,20 @@ public class Automato {
     }
 
     private boolean processa(int estadoAtual, String entrada, int pos, Stack<Character> pilha) {
+        System.out.println("Estado: " + estadoAtual + ", posicao: " + pos + ", pilha: " + pilha + ", proximo simbolo: " + (pos < entrada.length() ? entrada.charAt(pos) : "ε"));
+    
         if (pos == entrada.length()) {
             // Verifica transição epsilon no fim
             List<TransicaoPilhaUnit> transicoes = matriz.getTransicoes(estadoAtual, "-");
             for (TransicaoPilhaUnit trans : transicoes) {
                 if (podeDesempilhar(pilha, trans.getSimboloDesempilhar())) {
-                    Stack<Character> novaPilha = (Stack<Character>) pilha.clone();
+                    Stack<Character> novaPilha = copiaPilha(pilha);
                     desempilhar(novaPilha, trans.getSimboloDesempilhar());
                     empilhar(novaPilha, trans.getSimboloEmpilhar());
                     if (processa(trans.getEstadoDestino(), entrada, pos, novaPilha)) return true;
                 }
             }
-
-            return estadosFinais.contains(estadoAtual) && pilha.peek() == 'Z' && pilha.size() == 1;
+            return estadosFinais.contains(estadoAtual) && (pilha.isEmpty() || (pilha.peek() == 'Z' && pilha.size() == 1));
         }
 
         String simboloAtual = String.valueOf(entrada.charAt(pos));
@@ -48,7 +47,7 @@ public class Automato {
 
         for (TransicaoPilhaUnit trans : transicoes) {
             if (podeDesempilhar(pilha, trans.getSimboloDesempilhar())) {
-                Stack<Character> novaPilha = (Stack<Character>) pilha.clone();
+                Stack<Character> novaPilha = copiaPilha(pilha);
                 desempilhar(novaPilha, trans.getSimboloDesempilhar());
                 empilhar(novaPilha, trans.getSimboloEmpilhar());
                 if (processa(trans.getEstadoDestino(), entrada, pos + 1, novaPilha)) return true;
@@ -68,5 +67,12 @@ public class Automato {
 
     private void empilhar(Stack<Character> pilha, char simbolo) {
         if (simbolo != '-') pilha.push(simbolo);
+    }
+
+    // Método para copiar a pilha sem usar clone() e evitar warning unchecked
+    private Stack<Character> copiaPilha(Stack<Character> pilha) {
+        Stack<Character> nova = new Stack<>();
+        nova.addAll(pilha);
+        return nova;
     }
 }

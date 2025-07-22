@@ -12,17 +12,3 @@
 - Este projeto utiliza MAVEN e foi desenvolvido utilizando a IDE Netbeans. 
 - Utiliza o Java 11
 
-
-# Automato com Pilha 
-Projeto lfa_Pilha
-
-### OBJETIVO:
-
-- Implementar um sistema que	reconheça uma linguagem **livre de contexto**
-- Isto é, implementar um **Autômato com Pilha**
-
-### (testes)
-
-- Alfabeto = {a, b}
-- L = {w | para cada a uma ocorrencia de b }
-  
