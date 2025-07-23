@@ -9,7 +9,7 @@ public class LFA_Automatos {
     public static void main(String[] args) {
         Automato linguagemAABB = new Automato();        
 
-        if (linguagemAABB.verificaSentenca("a")) {
+        if (linguagemAABB.verificaSentenca("aaabbb")) {
             System.out.println("Aceita");
         }else{
             System.out.println("Rejeita");

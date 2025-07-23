@@ -14,6 +14,7 @@ public class Automato {
         this.estadoInicial = 0;
         this.estadosFinais = new ArrayList<>();
         this.estadosFinais.add(3);
+        this.estadosFinais.add(2);
         this.matriz = new TransicaoPilha();
         this.matriz.carregarDeArquivo("transicoes.txt");
     }
@@ -39,8 +40,8 @@ public class Automato {
                     if (processa(trans.getEstadoDestino(), entrada, pos, novaPilha)) return true;
                 }
             }
-            return estadosFinais.contains(estadoAtual) && (pilha.isEmpty() || (pilha.peek() == 'Z' && pilha.size() == 1));
-        }
+            return (pilha.isEmpty() || (pilha.peek() == 'Z' && pilha.size() == 1));
+          }
 
         String simboloAtual = String.valueOf(entrada.charAt(pos));
         List<TransicaoPilhaUnit> transicoes = matriz.getTransicoes(estadoAtual, simboloAtual);
